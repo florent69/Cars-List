@@ -3,24 +3,20 @@ package cars.list.cars.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import cars.list.cars.form.ProductForm;
-import cars.list.cars.model.Product;
+import cars.list.cars.form.CarForm;
+import cars.list.cars.model.Car;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
 
-    private static List<Product> products = new ArrayList<Product>();
 
-    static {
-        products.add(new Product("Tesla", "Model S"));
-        products.add(new Product("Volkswagen", "ID"));
-    }
+    @Autowired
+    private static List<Car> cars = new ArrayList<Car>();
 
     // Injectez (inject) via application.properties.
     @Value("${welcome.message}")
@@ -29,6 +25,7 @@ public class MainController {
     @Value("${error.message}")
     private String errorMessage;
 
+    // index
     @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
     public String index(Model model) {
 
@@ -37,40 +34,43 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = { "/productList" }, method = RequestMethod.GET)
+    //productList
+    @RequestMapping(value = { "/carList" }, method = RequestMethod.GET)
     public String productList(Model model) {
 
-        model.addAttribute("products", products);
+        model.addAttribute("cars", cars);
 
-        return "productList";
+        return "carList";
     }
 
-    @RequestMapping(value = { "/addProduct" }, method = RequestMethod.GET)
+    //addProduct GET
+    @RequestMapping(value = { "/addCar" }, method = RequestMethod.GET)
     public String showAddProductPage(Model model) {
 
-        ProductForm productForm = new ProductForm();
-        model.addAttribute("productForm", productForm);
+        CarForm carForm = new CarForm();
+        model.addAttribute("carForm", carForm);
 
-        return "addProduct";
+        return "addCar";
     }
 
-    @RequestMapping(value = { "/addProduct" }, method = RequestMethod.POST)
+    //addProduct POST
+    @RequestMapping(value = { "/addCar" }, method = RequestMethod.POST)
     public String saveProduct(Model model, //
-                             @ModelAttribute("productForm") ProductForm productForm) {
+                             @ModelAttribute("carForm") CarForm carForm) {
 
-        String brand = productForm.getBrand();
-        String name = productForm.getName();
+        String brand = carForm.getBrand();
+        String name = carForm.getName();
 
         if (brand != null && brand.length() > 0 //
                 && name != null && name.length() > 0) {
-            Product newProduct = new Product(brand, name);
-            products.add(newProduct);
+            Car newCar = new Car(brand, name);
+            cars.add(newCar);
 
-            return "redirect:/productList";
+            return "redirect:/carList";
         }
 
         model.addAttribute("errorMessage", errorMessage);
-        return "addProduct";
+        return "addCar";
     }
 
 }

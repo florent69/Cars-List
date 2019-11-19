@@ -1,6 +1,6 @@
 package cars.list.cars.form;
 
-public class ProductForm {
+public class CarForm {
     private String id;
     private String brand;
     private String name;

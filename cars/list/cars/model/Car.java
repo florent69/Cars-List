@@ -1,26 +1,28 @@
 package cars.list.cars.model;
 
+import cars.list.cars.CarIndex;
+
 import java.util.UUID;
 
-public class Product {
-    private String id = UUID.randomUUID().toString();
+public class Car {
+    private int id = CarIndex.getIndex();
     private String brand;
     private String name;
 
-    public Product() {
+    public Car() {
 
     }
 
-    public Product( String brand, String name) {
+    public Car(String brand, String name) {
         this.brand = brand;
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

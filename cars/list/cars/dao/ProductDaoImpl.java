@@ -14,7 +14,6 @@ public class ProductDaoImpl implements ProductDao {
     static {
         products.add(new Car("Tesla", "Model S"));
         products.add(new Car("Volkswagen", "ID"));
-
     }
 
     @Override
@@ -25,7 +24,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Car findById(int id) {
         for (Car car : products) {
-            if(car.getId() == id){
+            if (car.getId() == id) {
                 return car;
             }
         }
@@ -36,5 +35,11 @@ public class ProductDaoImpl implements ProductDao {
     public Car save(Car car) {
         products.add(car);
         return car;
+    }
+
+    @Override
+    public void delete(int id) {
+        Car car = this.findById(id);
+        products.remove(car);
     }
 }

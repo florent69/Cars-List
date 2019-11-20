@@ -33,8 +33,17 @@ public class ProductController {
     @PutMapping(value="/product")
     public Car updateCar(@RequestBody Car carDetails) {
         Car car = productDao.findById(carDetails.getId());
-        car.setBrand(carDetails.getBrand());
-        car.setName(carDetails.getName());
+        if(carDetails.getBrand() != null){
+            car.setBrand(carDetails.getBrand());
+        }
+        if(carDetails.getName() != null) {
+            car.setName(carDetails.getName());
+        }
         return car;
+    }
+
+    @DeleteMapping(value="/product/{id}")
+    public void deleteCar(@PathVariable int id) {
+        productDao.delete(id);
     }
 }

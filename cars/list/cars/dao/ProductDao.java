@@ -8,4 +8,5 @@ public interface ProductDao {
     public List<Car> findAll();
     public Car findById(int id);
     public Car save(Car car);
+    public void delete(int id);
 }

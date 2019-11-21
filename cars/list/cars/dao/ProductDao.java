@@ -1,12 +1,13 @@
 package cars.list.cars.dao;
 
 import cars.list.cars.model.Car;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface ProductDao {
-    public List<Car> findAll();
-    public Car findById(int id);
-    public Car save(Car car);
-    public void delete(int id);
+@Repository
+public interface ProductDao extends JpaRepository<Car, Integer> {
+    Car findById(int id);
+
 }

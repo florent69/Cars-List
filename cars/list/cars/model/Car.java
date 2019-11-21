@@ -1,11 +1,15 @@
 package cars.list.cars.model;
 
-import cars.list.cars.CarIndex;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import java.util.UUID;
-
+@Entity
 public class Car {
-    private int id = CarIndex.getIndex();
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
     private String brand;
     private String name;
 
